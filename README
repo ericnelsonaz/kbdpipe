@@ -1,0 +1,28 @@
+kbdpipe
+=======
+
+Program creates a fifo to receive keyboard requests, and generates
+uinput events for key down and up for the specified key.
+
+Invocation may include a parameter for the name of the fifo, but
+will default to /tmp/kbdpipe.
+
+~# kbdpipe /tmp/kbdpipe
+
+The program needs to run with root privilege in order to create
+a uinput device. The umask should be set to zero before creation
+or the fifo won't be world writable.
+
+~# umask 0 && kbdpipe /tmp/kbdpipe
+
+It can be accessed from another program (including shell scripts)
+by just writing a key code to the fifo.
+
+~$ echo 30 > /tmp/kbdpipe
+~$ a
+
+Keys are listed in /usr/include/event-codes.h, and KEY_A == 30.
+
+Note that either decimal or 0xHEX integer formats are supported.
+
+SPDX-License-Identifier:        LGPL-2.1+
