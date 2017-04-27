@@ -1,3 +1,5 @@
+prefix ?= /usr/local
+
 all: kbdpipe
 
 clean:
@@ -6,3 +8,5 @@ clean:
 kbdpipe: kbdpipe.c
 	$(CC) -O3 -Wall -o kbdpipe kbdpipe.c
 
+install: all
+	cp -fv kbdpipe ${prefix}/sbin/
